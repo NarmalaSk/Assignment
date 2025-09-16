@@ -1,24 +1,12 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: fastapi-deployment
-  labels:
-    app: fastapi
+  name: fastapi-service
 spec:
-  replicas: 2
   selector:
-    matchLabels:
-      app: fastapi
-  template:
-    metadata:
-      labels:
-        app: fastapi
-    spec:
-      containers:
-      - name: fastapi
-        image: myregistry.azurecr.io/fastapi:latest
-        ports:
-        - containerPort: 8000
-        env:
-        - name: ENV
-          value: "production"
+    app: fastapi
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: ClusterIP  
