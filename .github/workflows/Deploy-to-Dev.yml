@@ -1,1 +1,22 @@
+name: Deploy to Dev
+
+on:
+  workflow_call:
+    inputs:
+      artifact_name:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev 
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.artifact_name }}
+          path: ./artifact
+
+      - name: Deploy to Dev
+        run: ./scripts/deploy-dev.sh ./artifact
 
