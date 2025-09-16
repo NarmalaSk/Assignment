@@ -1,1 +1,21 @@
-
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gofiber-deployment
+  labels:
+    app: gofiber
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gofiber
+  template:
+    metadata:
+      labels:
+        app: gofiber
+    spec:
+      containers:
+      - name: gofiber
+        image: myregistry.azurecr.io/gofiber:latest 
+        ports:
+        - containerPort: 3000
