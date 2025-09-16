@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: trav.example.com
+    http:
+      paths:
+      - path: /fastapi
+        pathType: Prefix
+        backend:
+          service:
+            name: fastapi-service
+            port:
+              number: 80
+      - path: /gofiber
+        pathType: Prefix
+        backend:
+          service:
+            name: gofiber-service
+            port:
+              number: 80
