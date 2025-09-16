@@ -1,6 +1,12 @@
 name: Go Build, Test, Lint & Scan
 
 on:
+ workflow_call:            
+    inputs:
+      python_dir:
+        required: true
+        type: string
+        
   workflow_dispatch:
     inputs:
       go_dir:
