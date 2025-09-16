@@ -1,7 +1,13 @@
 name: Python Build, Test, Lint & Scan
 
 on:
-  workflow_dispatch:
+  workflow_call:            
+    inputs:
+      python_dir:
+        required: true
+        type: string
+
+  workflow_dispatch:        
     inputs:
       python_dir:
         description: "Directory containing Python code"
@@ -14,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ github.event.inputs.python_dir }}
+        working-directory: ${{ inputs.python_dir || github.event.inputs.python_dir }}
     steps:
       - uses: actions/checkout@v4
 
@@ -42,4 +48,4 @@ jobs:
       - name: Scan for Secrets (GitLeaks)
         uses: gitleaks/gitleaks-action@v2
         with:
-          args: detect --no-git -v --source=${{ github.event.inputs.python_dir }}
+          args: detect --no-git -v --source=${{ inputs.python_dir || github.event.inputs.python_dir }}
