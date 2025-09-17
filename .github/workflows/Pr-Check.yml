@@ -1,1 +1,13 @@
+name: CI
 
+on:
+  pull_request:
+    branches:
+      - Development
+  
+
+jobs:
+  call-template:
+    uses: ./.github/workflows/Templates/python.yml
+    with:
+      python_dir: ./python-app
